@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Sakura></title>
+    </head>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        $(document).ready(function(){
+            $("#searchQuery").on("input", function(){
+                //console.log(document.getElementById("searchQuery").value);               
+                searchTerm = document.getElementById("searchQuery").value;
+                $.post("http://127.0.0.1:5000/getsearchentries",{searchTerm : searchTerm},function(data) {
+                    $("#searchItems").empty();
+                    console.log(data);
+                    for (let i = 0; i < data.length; i++) {
+                    
+                        $("#searchItems").append("<option>" + data[i] + "</option>");
+                    }    
+                });
+             });
+        });
+    </script>
+    
+    <body>
+        <br>
+        <br>
+        <center><h1>Sakura</h1></center>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <br>
+        <center>
+            <form action="http://127.0.0.1:5000/" method="post">
+            Enter Search Query :
+            <input type="text" name="searchQuery" id="searchQuery" list="searchItems">
+            <input type="submit" value="Search" name="submit">
+            <datalist id="searchItems">    
+            </datalist>
+        </form>
+        </center>
+        <br>
+        <br>    
+        <hr>
+        <br>
+        <br>
+        <center><table>
+        {% for x in resultset %}
+            <tr>
+                <td>{{x}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        </center> 
+    
+    </body>
+</html>
