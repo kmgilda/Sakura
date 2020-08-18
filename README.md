@@ -1,3 +1,5 @@
+Sakura - Natural Language Search Engine
+
 MySQL Database commands:
 
 create database sakura;
